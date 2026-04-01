@@ -4,7 +4,33 @@ from datetime import datetime, timedelta
 
 app = Flask(__name__)
 app.secret_key = "secret123"
+app = Flask(__name__)
+app.secret_key = "secret123"
 
+# ===== DATABASE INIT (ADD THIS HERE) =====
+def init_db():
+    conn = get_db()
+    conn.execute('''CREATE TABLE IF NOT EXISTS amc (
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        name TEXT,
+        location TEXT,
+        contact_person TEXT,
+        contact_no TEXT,
+        email TEXT,
+        po_no TEXT,
+        po_date TEXT,
+        system TEXT,
+        visit_type TEXT,
+        start TEXT,
+        end TEXT,
+        last_visit TEXT,
+        engineer TEXT
+    )''')
+    conn.commit()
+    conn.close()
+
+# 👉 CALL IT HERE
+init_db()
 # ===== DATABASE =====
 def get_db():
     import os
