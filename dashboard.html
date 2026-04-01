@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Dashboard</title>
+
+<style>
+body { font-family: Arial; margin:0; display:flex; }
+.sidebar {
+    width:200px; background:#1f4e79; color:white; height:100vh;
+    padding:20px;
+}
+.sidebar a { color:white; display:block; margin:10px 0; text-decoration:none; }
+
+.main { flex:1; padding:20px; background:#f4f6f7; }
+
+.card {
+    background:white; padding:15px; margin:10px; display:inline-block;
+    width:200px; border-radius:10px;
+}
+
+table { width:100%; background:white; border-collapse:collapse; }
+th, td { padding:10px; border:1px solid #ddd; }
+
+button { padding:8px 12px; background:#28a745; color:white; border:none; }
+
+</style>
+</head>
+
+<body>
+
+<div class="sidebar">
+<h3>AMC System</h3>
+<a href="/dashboard">Dashboard</a>
+<a href="/logout">Logout</a>
+</div>
+
+<div class="main">
+
+<h2>Dashboard</h2>
+
+<div class="card">Total Customers</div>
+<div class="card">Due Visits</div>
+<div class="card">Expiring AMC</div>
+
+<h3>Add Customer</h3>
+
+<form method="POST" action="/add">
+<input name="name" placeholder="Name">
+<input name="location" placeholder="Location">
+<input name="cp" placeholder="Contact Person">
+<input name="cno" placeholder="Phone">
+<input name="email" placeholder="Email">
+<input name="po_no" placeholder="PO No">
+<input type="date" name="po_date">
+
+<select name="system">
+<option>HiPath 4000</option>
+<option>OpenScape 4000</option>
+<option>NEC SV9100</option>
+</select>
+
+<select name="visit">
+<option>Monthly</option>
+<option>Bimonthly</option>
+<option>Quarterly</option>
+</select>
+
+<input type="date" name="start">
+<input type="date" name="end">
+<input type="date" name="last">
+<input name="eng" placeholder="Engineer">
+
+<button>Add</button>
+</form>
+
+<hr>
+
+<h3>Customer List</h3>
+
+<table>
+<tr>
+<th>Name</th>
+<th>System</th>
+<th>Engineer</th>
+<th>Next Visit</th>
+<th>Action</th>
+</tr>
+
+{% for row, nv in data %}
+<tr>
+<td>{{row.name}}</td>
+<td>{{row.system}}</td>
+<td>{{row.engineer}}</td>
+<td>{{nv}}</td>
+<td><a href="/delete/{{row.id}}">Delete</a></td>
+</tr>
+{% endfor %}
+
+</table>
+
+</div>
+
+</body>
+</html>

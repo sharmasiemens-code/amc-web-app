@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>AMC Manager Web</title>
+</head>
+<body>
+
+<h2>AMC MANAGEMENT SYSTEM</h2>
+
+<form method="POST" action="/add">
+    Name: <input name="name"><br>
+    Location: <input name="location"><br>
+    Contact Person: <input name="cp"><br>
+    Contact No: <input name="cno"><br>
+    Email: <input name="email"><br>
+    PO No: <input name="po_no"><br>
+    PO Date: <input type="date" name="po_date"><br>
+
+    System:
+    <select name="system">
+        <option>HiPath 4000</option>
+        <option>OpenScape 4000</option>
+        <option>NEC SV9100</option>
+    </select><br>
+
+    Visit:
+    <select name="visit">
+        <option>Monthly</option>
+        <option>Bimonthly</option>
+        <option>Quarterly</option>
+    </select><br>
+
+    Start: <input type="date" name="start"><br>
+    End: <input type="date" name="end"><br>
+    Last Visit: <input type="date" name="last"><br>
+    Engineer: <input name="eng"><br>
+
+    <button type="submit">Add Customer</button>
+</form>
+
+<hr>
+
+<h3>Customer List</h3>
+
+<table border="1">
+<tr>
+<th>Name</th>
+<th>System</th>
+<th>Engineer</th>
+<th>Next Visit</th>
+<th>Action</th>
+</tr>
+
+{% for row, nv in data %}
+<tr>
+<td>{{row.name}}</td>
+<td>{{row.system}}</td>
+<td>{{row.engineer}}</td>
+<td>{{nv}}</td>
+<td><a href="/delete/{{row.id}}">Delete</a></td>
+</tr>
+{% endfor %}
+
+</table>
+
+</body>
+</html>
